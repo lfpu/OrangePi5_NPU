@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Docker Image",
+            "type": "shell",
+            "command": "docker build -t python-web-api .",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Docker Container",
+            "type": "shell",
+            "command": "docker run -d -p 8000:8000 python-web-api",
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}

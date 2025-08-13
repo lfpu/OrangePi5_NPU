@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  faceapi:
+    image: ezrealpu/rknn_face_api
+    container_name: faceapi
+    ports:
+      - "4000:8000"
+    volumes:
+      - /mnt/mydisk/HomeCloud:/app/Data
+      - /usr/lib/librknnrt.so:/usr/lib64/librknnrt.so
+      - /usr/bin:/usr/bin
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/dri/renderD129
+    security_opt:
+      - systempaths:unconfined
+    restart: unless-stopped
