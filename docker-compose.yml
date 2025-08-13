@@ -1,17 +1,31 @@
 version: '3.8'
+
 services:
+
   faceapi:
+
     image: ezrealpu/rknn_face_api
     container_name: faceapi
     ports:
-      - "4000:8000"
+      - "4000:8000"  #主机端口:容器端口
     volumes:
-      - /mnt/mydisk/HomeCloud:/app/Data
+      - /mnt/mydisk/HomeCloud:/app/Data  # 将当前目录下的 data 文件夹映射到容器内的 /app/Data
       - /usr/lib/librknnrt.so:/usr/lib64/librknnrt.so
       - /usr/bin:/usr/bin
     devices:
       - /dev/dri:/dev/dri
-      - /dev/dri/renderD129
+      - /dev/dri/renderD129 
+
     security_opt:
-      - systempaths:unconfined
+      - systempaths=unconfined
+      #- /proc/device-tree/compatible
+
+    command:
+      #- /bin/sh -c "chmod +x /usr/bin/rknn_server && chmod +x /usr/bin/start_rknn.sh && chmod +x /usr/bin/restart_rknn.sh && restart_rknn.sh"
     restart: unless-stopped
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    external: true
